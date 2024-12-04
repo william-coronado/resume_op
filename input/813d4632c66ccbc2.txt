@@ -1,0 +1,23 @@
+As a Senior Data Scientist at SFL Scientific, a Deloitte Business, you will define data strategy, drive technical development, and help us create the next generation of tools, products, and AI services. You will work closely with clients to understand their data sets, strategy, and operational requirements, in order to drive exploratory analysis and design long-term solutions.
+
+Working with a team of interdisciplinary data scientists, engineers, architects, and consultants, our work includes novel areas such as cancer detection, drug discovery, optimizing population health and clinical trials, autonomous systems and edge AI, and renewable energy. Join us to expand your technical career through the lens of consulting and work on many novel projects and use cases to expand your data science & AI skills.
+
+    - Guide clients with high autonomy in AI strategy and development, including understanding organizational needs, performing exploratory data analysis, building and validating models, and deploying models into production
+    - Lead client initiatives to deliver AI/ML solutions, including providing thought leadership, long-term maintenance, and AI strategy objectives
+    - Research and implement novel machine learning approaches, including advancing state of the art training, solution design, network design, and hardware optimization
+    - Validate AI models and algorithm via code reviews, unit, and integration tests
+    - Support prioritization of project performance and model development and ensure AI solutions are delivered to maximize business impact and new initiatives
+    - Collaborate with data engineers, data scientists, project managers, and business teams to make sure delivery and presentations are aligned with business objectives.
+
+Qualifications:
+
+    Master's or Ph.D. in a relevant STEM field (Data Science, Computer Science, Engineering, Physics, Mathematics, etc.)
+    3+ years' experience in AI/ML algorithm development and data analysis (NLP, time-series analysis, computer vision)
+    Expert in traditional ML and deep learning techniques (CNNs, RNNs, LSTMs, GANs,), model tuning, and validation of developed algorithms
+    Expert in core programming languages and data science packages (Python, Keras, Tensorflow, PyTorch, Pandas, Scikit-learn, Jupyter, etc.)
+    Experience with deployment and optimization - Kubernetes, Docker, NVIDIA TensorRT/Triton, RAPIDs, Kubeflow, MLflow etc.
+    Experience with cloud deployment (AWS, Azure, GCP) preferred, such as building and scaling in AWS SageMaker or Azure ML Studio
+    Ability to interact at all levels of the client organization
+    Live within commuting distance to one of Deloitte's consulting offices
+    Ability to travel 10%, on average, based on the work you do and the clients and industries/sectors you serve
+    Limited immigration sponsorship may be available.
