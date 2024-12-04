@@ -1,36 +1,48 @@
 import os
 import openai
-from helper_lib import *
+from helper_lib import read_text_file, write_to_text_file, getPrompt
 
-# OpenAI API Key is assumed to be in OS env variable
-openai.api_key = os.getenv('OPENAI_DEVKEY')
-job_pos_folder = './input/'
-output_folder = './output'
-resume_path = './william-resume.md'
+# Constants and configurations
+OPENAI_API_KEY = os.getenv('OPENAI_DEVKEY')
+JOB_POS_FOLDER = './input/'
+OUTPUT_FOLDER = './output'
+RESUME_PATH = './william-resume.md'
 
-md_resume = read_text_file(resume_path)
+def main():
+    # Set OpenAI API key
+    openai.api_key = OPENAI_API_KEY
 
-dir_list = os.listdir(job_pos_folder)
-print(">>> START <<<")
-for filename in dir_list:
-    print("Processing %s" %filename)
+    # Read original resume
+    md_resume = read_text_file(RESUME_PATH)
 
-    job_description = read_text_file(job_pos_folder + filename)
-    prompt = getPrompt(md_resume, job_description)
+    # List job description files
+    dir_list = os.listdir(JOB_POS_FOLDER)
+    print(">>> START <<<")
+    for filename in dir_list:
+        print(f"Processing {filename}")
 
-    # make api call
-    response = openai.chat.completions.create(
-        model="gpt-4o-mini",
-        messages=[
-            {"role": "system", "content": "You are a helpful assistant."},
-            {"role": "user", "content": prompt}
-        ], 
-        temperature = 0.25
-    )
+        # Read job description
+        job_description = read_text_file(os.path.join(JOB_POS_FOLDER, filename))
+        prompt = getPrompt(md_resume, job_description)
+
+        # Make API call
+        response = openai.chat.completions.create(
+            model="gpt-4o-mini",
+            messages=[
+                {"role": "system", "content": "You are a helpful assistant."},
+                {"role": "user", "content": prompt}
+            ], 
+            temperature=0.25
+        )
         
-    # extract response
-    resume = response.choices[0].message.content
+        # Extract response
+        resume = response.choices[0].message.content
 
-    write_to_text_file('%s/resume-%s.md' %(output_folder,filename), resume)
+        # Write optimized resume to file
+        output_file_path = os.path.join(OUTPUT_FOLDER, f'resume-{filename}.md')
+        write_to_text_file(output_file_path, resume)
 
-print(">>> END <<<")
+    print(">>> END <<<")
+
+if __name__ == "__main__":
+    main()
