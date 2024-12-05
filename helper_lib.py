@@ -1,11 +1,18 @@
 def read_text_file(file_path):
-    with open(file_path, 'r', encoding='utf-8') as file:
-        file_content = file.read()
-    return file_content
+    try:
+        with open(file_path, 'r') as file:
+            return file.read()
+    except FileNotFoundError:
+        print(f"Error: The file {file_path} was not found.")
+    except IOError:
+        print(f"Error: An I/O error occurred while reading the file {file_path}.")
 
 def write_to_text_file(file_path, content):
-    with open(file_path, 'w', encoding='utf-8') as file:
-        file.write(content)
+    try:
+        with open(file_path, 'w') as file:
+            file.write(content)
+    except IOError:
+        print(f"Error: An I/O error occurred while writing to the file {file_path}.")
 
 def getPrompt(md_resume, job_description):
     prompt = f"""
@@ -29,7 +36,6 @@ def getPrompt(md_resume, job_description):
     - Maintain clarity, conciseness, and professionalism throughout.
 
     Return the updated resume in Markdown format.
-
     """
     
     return prompt
