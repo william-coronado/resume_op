@@ -1,10 +1,12 @@
 # Resume Optimizer
 
 ## Purpose
+
 This project was designed to tailor a resume for a given job description.
 The main scrips reads an original resume and multiple job descriptions, uses OpenAI's GPT model to tailor the resume for each job description, and saves the optimized resumes to an output folder. The helper functions facilitate reading and writing files and generating the prompt for the AI.
 
 ## Detail
+
 Here's a detailed breakdown of what the script and associated library functions do:
 
 ### optimise_resume.py
@@ -33,6 +35,7 @@ Here's a detailed breakdown of what the script and associated library functions 
     - Prints messages to indicate the start and end of the process.
 
 ### helper_lib.py
+
 1. **`read_text_file(file_path)`**:
     - Reads the content of a text file specified by `file_path` and returns it as a string.
 

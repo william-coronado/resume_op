@@ -1,12 +1,19 @@
 import os
 import openai
+import yaml
 from helper_lib import read_text_file, write_to_text_file, getPrompt
+
+# Load configuration from Config.yaml
+with open('Config.yaml', 'r') as config_file:
+    config = yaml.safe_load(config_file)
 
 # Constants and configurations
 OPENAI_API_KEY = os.getenv('OPENAI_DEVKEY')
-JOB_POS_FOLDER = './input/'
-OUTPUT_FOLDER = './output'
-RESUME_PATH = './william-resume.md'
+JOB_POS_FOLDER = config['JOB_POS_FOLDER']
+OUTPUT_FOLDER = config['OUTPUT_FOLDER']
+RESUME_PATH = config['RESUME_PATH']
+LLM_MODEL = config['LLM_MODEL']
+LLM_temperature = config['LLM_temperature']
 
 def main():
     # Set OpenAI API key
@@ -27,12 +34,12 @@ def main():
 
         # Make API call
         response = openai.chat.completions.create(
-            model="gpt-4o-mini",
+            model=LLM_MODEL,
             messages=[
                 {"role": "system", "content": "You are a helpful assistant."},
                 {"role": "user", "content": prompt}
             ], 
-            temperature=0.25
+            temperature=LLM_temperature
         )
         
         # Extract response

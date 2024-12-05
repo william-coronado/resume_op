@@ -1,4 +1,4 @@
-Here’s your updated resume tailored to the job description for the Senior Data Scientist position at SFL Scientific, a Deloitte Business. I've incorporated relevant keywords and phrases from the job description while emphasizing your skills and experiences that align with the requirements.
+Here is your updated resume tailored to the job description for the Senior Data Scientist position at SFL Scientific, a Deloitte Business:
 
 ```markdown
 # William Coronado  
@@ -10,17 +10,18 @@ Melbourne, Australia
 ---
 
 ## Professional Profile  
-A highly skilled and self-motivated Data Scientist with over 15 years of experience in data strategy, AI/ML algorithm development, and implementing innovative solutions. Proven track record in leading cross-functional teams to deliver impactful data-driven insights and solutions. Adept at collaborating with clients to understand their operational needs and drive exploratory analysis, model validation, and deployment. Strong expertise in machine learning, data analytics, and cloud technologies, with a commitment to advancing state-of-the-art methodologies.
+A results-driven Data Scientist with over 15 years of experience in data strategy, AI/ML algorithm development, and leading interdisciplinary teams. Proven expertise in exploratory data analysis, model validation, and deployment of AI solutions to drive business impact. A collaborative leader skilled in building relationships with clients to understand their operational requirements and deliver innovative data-driven solutions. 
 
 ---
 
 ## Key IT Skills  
-- **Machine Learning & AI:** Expert in traditional ML and deep learning techniques (CNNs, RNNs, LSTMs, GANs), model tuning, and validation using Python, Keras, TensorFlow, and PyTorch.  
-- **Cloud Technologies:** Proficient in AWS (SageMaker, Redshift, S3), Azure ML, and GCP for building and scaling AI solutions.  
-- **Data Analytics:** Extensive experience with data analysis and visualization tools including Power BI, Tableau, and Azure ML.  
-- **Programming Languages:** Python, R, SQL (T-SQL, PL/SQL), and MATLAB for data manipulation and model development.  
-- **ETL/ELT Processes:** Skilled in ADF, SSIS, and Informatica for data integration and transformation.  
-- **Collaboration & Leadership:** Strong ability to guide interdisciplinary teams and engage with clients at all organizational levels to align project objectives with business goals.  
+- **AI/ML Technologies:** AWS SageMaker, Azure ML, TensorFlow, Keras, PyTorch, Scikit-learn, Pandas, NumPy  
+- **Database/Apps:** AWS Redshift, AWS S3, SQL Server (Azure and on-premises), Teradata, Oracle, PostgreSQL  
+- **Analytics:** Power BI, Tableau, SSAS, Machine Learning using Python, Hadoop (Spark, Hive)  
+- **ETL/ELT:** ADF, SSIS, Informatica, Alteryx  
+- **Programming Languages:** Python, R, SQL, Java, MATLAB  
+- **Deployment & Optimization:** Kubernetes, Docker, MLflow, NVIDIA TensorRT  
+- **Design/Modelling:** Solution Design using UML, Data Modelling using ER  
 
 ---
 
@@ -28,28 +29,28 @@ A highly skilled and self-motivated Data Scientist with over 15 years of experie
 
 ### 2021 - Present: Senior Data Scientist  
 **Telstra, Melbourne**  
-- Defined and executed data strategy for AI initiatives, including the development of a Fraud AI model to enhance customer order scoring.  
-- Led exploratory data analysis and created marketing segmentation for SMB using machine learning clustering techniques.  
-- Acted as Technical Product Owner for a new Azure Machine Learning platform, driving business performance insights and ensuring alignment with enterprise objectives.  
-- Collaborated with cross-functional teams to validate AI models and ensure deployment into production environments.  
+- Defined data strategy and contributed to the development of a Fraud AI model to enhance customer order scoring for device payment agreements.  
+- Led exploratory data analysis and created marketing segmentation for SMB using advanced ML clustering techniques.  
+- Acted as Technical Product Owner for a new Azure Machine Learning platform, driving AI strategy and delivering insights for business performance.  
+- Collaborated with cross-functional teams to ensure alignment of AI solutions with business objectives and client needs.  
 
 ### 2011 - 2021: Software Consultant  
 **DWS Ltd, Melbourne**  
-- Delivered AI/ML solutions and data science consultation services for major clients, focusing on long-term maintenance and strategic objectives.  
-- Conducted comprehensive data analysis and developed recommendations for process improvements, enhancing operational efficiency.  
+- Delivered AI/ML solutions and data science consultation services, guiding clients through the development and deployment of innovative data strategies.  
+- Conducted comprehensive data analysis and developed recommendations for process improvements, enhancing reporting platforms for major clients.  
 - **Clients:**  
-  - *Telstra:* Designed end-to-end models for addressable market analysis and built dashboards for executive decision-making, leading to improved business impact.  
-  - *Target Australia:* Developed reports optimizing in-stock positions and reducing markdowns through data-driven insights.  
-  - *CPA Australia:* Modeled and built a Staging and Dimensional Data Store, facilitating advanced analytics capabilities.  
-  - *National Australia Bank:* Led ETL development and data modeling support to enhance data quality and accessibility.  
+  - *Telstra:* Designed end-to-end models for addressable market analysis, built executive dashboards, and led ETL and data quality development.  
+  - *Target Australia:* Developed reports to optimize inventory positions and minimize markdowns through data-driven insights.  
+  - *CPA Australia:* Modeled and built Staging and Dimensional Data Store to support advanced analytics.  
+  - *National Australia Bank:* Led ETL development and provided data modeling support for enhanced decision-making.  
 
 ### 2014: Business Intelligence Consultant  
 **Servian, Melbourne**  
-- Engaged with end users to establish business requirements and deliver ongoing data modeling, database implementation, and reporting solutions.  
+- Engaged in data modeling, database implementation, and reporting, ensuring alignment with client business requirements and objectives.  
 
 ### 2011: Data Consultant  
 **PwC Australia, Melbourne**  
-- Provided database analytics, ad-hoc reporting, and software development, contributing to client data strategy and operational improvements.  
+- Provided database analytics and ad-hoc reporting, contributing to data-driven decision-making processes for clients.  
 
 ### 2010: Research Assistant  
 **La Trobe University, Bundoora**  
@@ -57,19 +58,19 @@ A highly skilled and self-motivated Data Scientist with over 15 years of experie
 
 ### 2008 - 2009: Demonstrator/Tutor (Computer Science and Computer Engineering)  
 **La Trobe University, Bundoora**  
-- Provided technology demonstrations and tutoring, enhancing student understanding of data systems and analytics.  
+- Demonstrated technology applications and provided tutoring in computer science concepts.  
 
 ### 2008: Cadetship  
 **Tabcorp, Melbourne**  
-- Supported data warehouse decommissioning and data migration, ensuring data integrity and accessibility.  
+- Supported data warehouse decommissioning and data migration efforts, ensuring data integrity and continuity.  
 
 ### 2000 - 2008: Project Leader (Systems Development Department)  
 **CANTV (Telco), Caracas**  
-- Supervised teams in developing new modules for an Oracle-based OSS/BSS system, enhancing operational capabilities.  
+- Supervised teams in developing new modules for an Oracle-based OSS/BSS system, enhancing operational efficiency.  
 
 ### 1997 - 2000: Development Engineer  
 **Infotrol, Caracas**  
-- Delivered software solutions for external clients, focusing on data-driven applications and system integration.  
+- Delivered software solutions for external clients, focusing on meeting diverse business needs.  
 
 ---
 

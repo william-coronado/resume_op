@@ -1,0 +1,5 @@
+JOB_POS_FOLDER: './input/'
+OUTPUT_FOLDER: './output'
+RESUME_PATH: './william-resume.md'
+LLM_MODEL: 'gpt-4o-mini'
+LLM_temperature: 0.25
