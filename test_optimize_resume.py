@@ -1,65 +1,75 @@
-import os
+# test_optimize_resume.py
+
 import pytest
-from unittest.mock import patch, MagicMock
+from unittest.mock import patch, MagicMock, ANY
 import optimize_resume
 
-# Mock configuration data
-mock_config = {
-    'OPENAI_API_KEY': 'test_api_key',
-    'JOB_POS_FOLDER': './input/',
-    'OUTPUT_FOLDER': './output/',
-    'RESUME_PATH': './william-resume.md',
-    'LLM_MODEL': 'gpt-4o-mini',
-    'LLM_temperature': 0.25
-}
+@pytest.fixture
+def mock_config(monkeypatch):
+    config = {
+        'LLM_MODEL': 'gpt-4',
+        'LLM_temperature': 0.7,
+        'RESUME_PATH': 'test_resume.md',
+        'JOB_POS_FOLDER': 'test_jobs',
+        'OUTPUT_FOLDER': 'test_output'
+    }
+    # Monkeypatch config values
+    for key, value in config.items():
+        monkeypatch.setattr(f'optimize_resume.{key}', value)
+    return config
 
-# Mock data for read_text_file
-mock_resume_content = "This is a test resume."
-mock_job_description_content = "This is a test job description."
+def test_sendLLMRequest_success():
+    with patch('optimize_resume.client.chat.completions.create') as mock_create:
+        mock_response = MagicMock()
+        mock_response.choices[0].message.content = "Optimized content"
+        mock_create.return_value = mock_response
 
-@patch.dict(os.environ, {'OPENAI_API_KEY': 'test_api_key'})
-@patch('optimize_resume.yaml.safe_load', return_value=mock_config)
-@patch('optimize_resume.os.listdir', return_value=['job1.txt', 'job2.txt'])
-@patch('optimize_resume.write_to_text_file')
-@patch('optimize_resume.read_text_file', side_effect=[
-    mock_resume_content,
-    mock_job_description_content,
-    mock_job_description_content
-])
-@patch('openai.chat.completions.create')
-def test_optimize_resume(
-    mock_openai_create,
-    mock_read_text_file,
-    mock_write_to_text_file,
-    mock_os_listdir,
-    mock_yaml_safe_load
-):
-    # Set up the mock for OpenAI API call
-    mock_response = MagicMock()
-    mock_response.choices = [MagicMock(message=MagicMock(content="Mocked optimized resume"))]
-    mock_openai_create.return_value = mock_response
+        result = optimize_resume.sendLLMRequest("test prompt")
+        assert result == "Optimized content"
+        
+        mock_create.assert_called_once_with(
+            model=optimize_resume.LLM_MODEL,
+            messages=[
+                {"role": "system", "content": "You are a helpful assistant."},
+                {"role": "user", "content": "test prompt"}
+            ],
+            temperature=optimize_resume.LLM_temperature
+        )
 
-    # Run the script
-    optimize_resume.main()
+def test_sendLLMRequest_exception(capsys):
+    with patch('optimize_resume.client.chat.completions.create', side_effect=Exception("API Error")):
+        result = optimize_resume.sendLLMRequest("test prompt")
+        assert result is None
+        
+        captured = capsys.readouterr()
+        assert "An unexpected error occurred while calling openai.chat.completions.create(): API Error" in captured.out
 
-    # Check if read_text_file was called correctly
-    mock_read_text_file.assert_any_call('./william-resume.md')
-    mock_read_text_file.assert_any_call('./input/job1.txt')
-    mock_read_text_file.assert_any_call('./input/job2.txt')
+def test_main_success(mock_config):
+    with patch('optimize_resume.read_text_file') as mock_read, \
+        patch('optimize_resume.os.listdir') as mock_listdir, \
+        patch('optimize_resume.sendLLMRequest') as mock_send, \
+        patch('optimize_resume.write_to_text_file') as mock_write, \
+        patch('optimize_resume.getPrompt') as mock_prompt:
 
-    # Check if os.listdir was called correctly
-    mock_os_listdir.assert_called_with('./input/')
+        mock_read.return_value = "Original resume"
+        mock_listdir.return_value = ["job1.txt"]
+        mock_send.return_value = "Optimized resume"
+        mock_prompt.return_value = "Generated prompt"
 
-    # Check if OpenAI API was called
-    assert mock_openai_create.called
+        optimize_resume.main()
 
-    # Check if write_to_text_file was called correctly
-    mock_write_to_text_file.assert_any_call(
-        './output/resume-job1.txt.md', 'Mocked optimized resume'
-    )
-    mock_write_to_text_file.assert_any_call(
-        './output/resume-job2.txt.md', 'Mocked optimized resume'
-    )
+        mock_read.assert_called()
+        mock_send.assert_called_once_with("Generated prompt")
+        mock_write.assert_called_once_with(ANY, "Optimized resume")
 
-if __name__ == "__main__":
-    pytest.main()
+def test_main_missing_resume(mock_config, capsys):
+    with patch('optimize_resume.read_text_file', return_value=None):
+        optimize_resume.main()
+        captured = capsys.readouterr()
+        assert "Error: Failed to read the resume." in captured.out
+
+def test_main_missing_job_folder(mock_config, capsys):
+    with patch('optimize_resume.read_text_file', return_value="resume"), patch('optimize_resume.os.listdir', side_effect=FileNotFoundError):
+        optimize_resume.main()
+        captured = capsys.readouterr()
+        assert f"Error: The directory {mock_config['JOB_POS_FOLDER']} was not found." in captured.out

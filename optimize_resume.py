@@ -1,5 +1,5 @@
 import os
-import openai
+from openai import OpenAI
 import yaml
 from helper_lib import read_text_file, write_to_text_file, getPrompt
 
@@ -19,6 +19,7 @@ OPENAI_API_KEY = config.get('OPENAI_API_KEY', os.getenv('OPENAI_API_KEY'))
 if OPENAI_API_KEY is None:
     print("Error: OpenAI API key not found. Please set it in Config.yaml or as an environment variable 'OPENAI_API_KEY'.")
     exit(1)
+client = OpenAI(api_key=OPENAI_API_KEY)
 
 JOB_POS_FOLDER = config['JOB_POS_FOLDER']
 OUTPUT_FOLDER = config['OUTPUT_FOLDER']
@@ -26,10 +27,22 @@ RESUME_PATH = config['RESUME_PATH']
 LLM_MODEL = config['LLM_MODEL']
 LLM_temperature = config['LLM_temperature']
 
+def sendLLMRequest(prompt):
+    try:
+        response = client.chat.completions.create(
+            model=LLM_MODEL,
+            messages=[
+                {"role": "system", "content": "You are a helpful assistant."},
+                {"role": "user", "content": prompt}
+            ],
+            temperature=LLM_temperature
+        )
+    except Exception as e:
+            print(f"An unexpected error occurred while calling openai.chat.completions.create(): {e}")
+            return
+    
+    return response.choices[0].message.content  
 def main():
-    # Set OpenAI API key
-    openai.api_key = OPENAI_API_KEY
-
     # Read original resume
     md_resume = read_text_file(RESUME_PATH)
     if md_resume is None:
@@ -58,23 +71,7 @@ def main():
             
         prompt = getPrompt(md_resume, job_description)
 
-        # Make API call
-        try:
-            response = openai.chat.completions.create(
-                model=LLM_MODEL,
-                messages=[
-                    {"role": "system", "content": "You are a helpful assistant."},
-                    {"role": "user", "content": prompt}
-                ], 
-                temperature=LLM_temperature
-            )
-        
-        except Exception as e:
-            print(f"An unexpected error occurred while calling openai.chat.completions.create(): {e}")
-            return
-        
-        # Extract response
-        resume = response.choices[0].message.content
+        resume = sendLLMRequest(prompt)
 
         # Write optimized resume to file
         output_file_path = os.path.join(OUTPUT_FOLDER, f'resume-{filename}.md')
