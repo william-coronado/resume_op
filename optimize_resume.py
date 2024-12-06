@@ -15,7 +15,11 @@ except yaml.YAMLError as e:
     exit(1)
 
 # Constants and configurations
-OPENAI_API_KEY = os.getenv('OPENAI_DEVKEY')
+OPENAI_API_KEY = config.get('OPENAI_API_KEY', os.getenv('OPENAI_API_KEY'))
+if OPENAI_API_KEY is None:
+    print("Error: OpenAI API key not found. Please set it in Config.yaml or as an environment variable 'OPENAI_API_KEY'.")
+    exit(1)
+
 JOB_POS_FOLDER = config['JOB_POS_FOLDER']
 OUTPUT_FOLDER = config['OUTPUT_FOLDER']
 RESUME_PATH = config['RESUME_PATH']
@@ -56,7 +60,7 @@ def main():
 
         # Make API call
         try:
-            response = openai.ChatCompletion.create(
+            response = openai.chat.completions.create(
                 model=LLM_MODEL,
                 messages=[
                     {"role": "system", "content": "You are a helpful assistant."},
@@ -66,7 +70,7 @@ def main():
             )
         
         except Exception as e:
-            print(f"An unexpected error occurred while calling openai.ChatCompletion.create(): {e}")
+            print(f"An unexpected error occurred while calling openai.chat.completions.create(): {e}")
             return
         
         # Extract response

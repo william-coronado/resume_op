@@ -17,7 +17,7 @@ mock_config = {
 mock_resume_content = "This is a test resume."
 mock_job_description_content = "This is a test job description."
 
-@patch.dict(os.environ, {'OPENAI_DEVKEY': 'test_api_key'})
+@patch.dict(os.environ, {'OPENAI_API_KEY': 'test_api_key'})
 @patch('optimize_resume.yaml.safe_load', return_value=mock_config)
 @patch('optimize_resume.os.listdir', return_value=['job1.txt', 'job2.txt'])
 @patch('optimize_resume.write_to_text_file')
@@ -26,7 +26,7 @@ mock_job_description_content = "This is a test job description."
     mock_job_description_content,
     mock_job_description_content
 ])
-@patch('openai.ChatCompletion.create')
+@patch('openai.chat.completions.create')
 def test_optimize_resume(
     mock_openai_create,
     mock_read_text_file,
