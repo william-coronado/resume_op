@@ -9,7 +9,7 @@ The main scrips reads an original resume and multiple job descriptions, uses Ope
 
 Here's a detailed breakdown of what the script and associated library functions do:
 
-### optimise_resume.py
+### optimize_resume.py
 
 1. **Imports and Setup**:
     - Imports necessary modules: *os* for file operations and *openai* for interacting with the OpenAI API.

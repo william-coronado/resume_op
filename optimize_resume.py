@@ -56,7 +56,7 @@ def main():
 
         # Make API call
         try:
-            response = openai.chat.completions.create(
+            response = openai.ChatCompletion.create(
                 model=LLM_MODEL,
                 messages=[
                     {"role": "system", "content": "You are a helpful assistant."},
@@ -66,7 +66,7 @@ def main():
             )
         
         except Exception as e:
-            print(f"An unexpected error occurred while calling openai.chat.completions.create(): {e}")
+            print(f"An unexpected error occurred while calling openai.ChatCompletion.create(): {e}")
             return
         
         # Extract response
