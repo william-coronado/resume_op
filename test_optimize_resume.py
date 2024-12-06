@@ -3,19 +3,39 @@
 import pytest
 from unittest.mock import patch, MagicMock, ANY
 import optimize_resume
+import yaml
+
+@pytest.fixture(autouse=True)
+def mock_openai():
+    with patch('optimize_resume.OpenAI') as mock:
+        mock_client = MagicMock()
+        mock.return_value = mock_client
+        yield mock_client
 
 @pytest.fixture
 def mock_config(monkeypatch):
+    # Mock environment variables
+    monkeypatch.setenv('OPENAI_API_KEY', 'test-api-key')
+    
     config = {
+        'OPENAI_API_KEY': 'test-api-key',
         'LLM_MODEL': 'gpt-4',
         'LLM_temperature': 0.7,
         'RESUME_PATH': 'test_resume.md',
         'JOB_POS_FOLDER': 'test_jobs',
         'OUTPUT_FOLDER': 'test_output'
     }
-    # Monkeypatch config values
+    
+    # Mock yaml.safe_load
+    monkeypatch.setattr(yaml, 'safe_load', lambda *args: config)
+    
+    # Mock file operations
+    monkeypatch.setattr('builtins.open', MagicMock())
+    
+    # Set config values
     for key, value in config.items():
         monkeypatch.setattr(f'optimize_resume.{key}', value)
+        
     return config
 
 def test_sendLLMRequest_success():
@@ -62,14 +82,15 @@ def test_main_success(mock_config):
         mock_send.assert_called_once_with("Generated prompt")
         mock_write.assert_called_once_with(ANY, "Optimized resume")
 
-def test_main_missing_resume(mock_config, capsys):
+def test_main_missing_resume(mock_config, mock_openai, capsys):
     with patch('optimize_resume.read_text_file', return_value=None):
         optimize_resume.main()
         captured = capsys.readouterr()
         assert "Error: Failed to read the resume." in captured.out
 
-def test_main_missing_job_folder(mock_config, capsys):
-    with patch('optimize_resume.read_text_file', return_value="resume"), patch('optimize_resume.os.listdir', side_effect=FileNotFoundError):
+def test_main_missing_job_folder(mock_config, mock_openai, capsys):
+    with patch('optimize_resume.read_text_file', return_value="resume"), \
+        patch('optimize_resume.os.listdir', side_effect=FileNotFoundError):
         optimize_resume.main()
         captured = capsys.readouterr()
         assert f"Error: The directory {mock_config['JOB_POS_FOLDER']} was not found." in captured.out
